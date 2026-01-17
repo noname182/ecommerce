@@ -1,0 +1,41 @@
+{
+  "name": "ecommerce",
+  "version": "0.1.0",
+  "private": true,
+
+  "scripts": {
+    "frontend": "next dev", 
+    "backend": "nest start --path ./tsconfig.json --watch",
+    "reparar": "rd /s /q dist && cd backend && npx nest build && move .\\dist ..\\dist && cd ..",
+    "build:all": "next build && npx nest build",
+    "clean": "Remove-Item -Recurse -Force dist, .next"
+  },
+  "dependencies": {
+    "@nestjs/common": "^11.1.11",
+    "@nestjs/core": "^11.1.11",
+    "@nestjs/platform-express": "^11.1.11",
+    "@prisma/adapter-pg": "^7.2.0",
+    "dotenv": "^17.2.3",
+    "next": "16.1.1",
+    "nodemailer": "^7.0.12",
+    "pg": "^8.16.3",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.2"
+  },
+  "devDependencies": {
+    "@prisma/client": "^7.2.0",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/nodemailer": "^7.0.5",
+    "@types/pg": "^8.16.0",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.1.1",
+    "prisma": "^7.2.0",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}

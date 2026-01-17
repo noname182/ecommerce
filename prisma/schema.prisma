@@ -1,0 +1,78 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model usuario {
+  id_usuario         Int      @id @default(autoincrement())
+  nombre_usuario     String
+  correo_usuario     String   @unique
+  contrasena_usuario String
+  rol                String   @default("cliente")
+
+  esta_verificado      Boolean  @default(false) 
+  codigo_verificacion  String?  // Aquí guardaremos el número de 6 dígitos
+  fecha_codigo         DateTime? // Para que el código expire en X minutos
+  
+  google_id          String?
+  pedidos            pedido[]
+}
+
+model PreUser {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  code      String   // El código de 6 dígitos
+  createdAt DateTime @default(now()) // Para medir los 15 minutos
+}
+
+model categoria {
+  id_categoria       Int                  @id @default(autoincrement())
+  tipo               String
+  categoria_producto categoria_producto[]
+}
+
+model producto {
+  id_producto               Int                  @id @default(autoincrement())
+  nombre_producto           String
+  descripcion_producto      String
+  precio_producto           Decimal
+  precio_producto_descuento Decimal?
+  stock_producto            Int
+  imagen_producto           String?
+  talla                     String?
+  color                     String?
+  detalle_pedido            detalle_pedido[]
+  categoria_producto        categoria_producto[]
+}
+
+model pedido {
+  id_pedido      Int              @id @default(autoincrement())
+  id_usuario     Int
+  total          Decimal
+  estado         String           @default("pendiente")
+  fecha_creacion DateTime         @default(now())
+  usuario        usuario          @relation(fields: [id_usuario], references: [id_usuario])
+  detalles       detalle_pedido[]
+}
+
+model detalle_pedido {
+  id_detalle_pedido Int      @id @default(autoincrement())
+  id_pedido         Int
+  id_producto       Int
+  cantidad          Int
+  precio_unitario   Decimal
+  pedido            pedido   @relation(fields: [id_pedido], references: [id_pedido])
+  producto          producto @relation(fields: [id_producto], references: [id_producto])
+}
+
+model categoria_producto {
+  id_categoria_producto Int       @id @default(autoincrement())
+  id_categoria          Int
+  id_producto           Int
+  categoria             categoria @relation(fields: [id_categoria], references: [id_categoria])
+  producto              producto  @relation(fields: [id_producto], references: [id_producto])
+}
