@@ -13,6 +13,7 @@
     "start:prod": "node dist/main"
   },
   "dependencies": {
+    "ecommerce": "file:..",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.2"
   },
