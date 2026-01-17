@@ -5,8 +5,9 @@
 
   "scripts": {
     "frontend": "next dev", 
-    "backend": "nest start --path ./tsconfig.json --watch",
+    "backend": "cd backend && npm run start:dev",
     "reparar": "rd /s /q dist && cd backend && npx nest build && move .\\dist ..\\dist && cd ..",
+    "crear": "cd backend && npx nest build",
     "build:all": "next build && npx nest build",
     "clean": "Remove-Item -Recurse -Force dist, .next"
   },
